@@ -1,7 +1,3 @@
-const bookTitle = document.querySelector("#book-title");
-const myTable = document.querySelector("#myTable");
-const addBtn = document.querySelector("#addBtn");
-
 // create Book constructor
 function Book(title, author, pages, isRead) {
   this.id = crypto.randomUUID();
@@ -20,6 +16,24 @@ function addBooks(title, author, pages, isRead) {
   library.push(newBook);
 }
 
+//Adding some initial books to the library
+addBooks("The Great Gatsby", "F. Scott Fitzgerald", 180, true);
+addBooks("To Kill a Mockingbird", "Harper Lee", 281, false);
+
+const bookTitle = document.querySelector("#book-title");
+const myTable = document.querySelector("#myTable");
+const addBtn = document.querySelector("#addBtn");
+const removeBtn = document.querySelector("#removeBtn");
+
+// Display the initial books
+library.forEach((book) => {
+  const newRow = myTable.insertRow();
+  newRow.insertCell().textContent = book.title;
+  newRow.insertCell().textContent = book.author;
+  newRow.insertCell().textContent = book.pages;
+  newRow.insertCell().textContent = book.isRead;
+});
+
 //Add Button Functionality
 addBtn.addEventListener("click", () => {
   //create new row and cells
@@ -28,6 +42,9 @@ addBtn.addEventListener("click", () => {
   const authorCell = document.createElement("td");
   const pagesCell = document.createElement("td");
   const isReadCell = document.createElement("td");
+  const deleteBtnCell = document.createElement("td");
+  const deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "Delete";
 
   //take book details from user
   const title = prompt("Enter the book title");
@@ -47,26 +64,37 @@ addBtn.addEventListener("click", () => {
   authorCell.textContent = latestBook.author;
   pagesCell.textContent = latestBook.pages;
   isReadCell.textContent = latestBook.isRead;
+  //delete button functionality for each row
+  deleteBtnCell.appendChild(deleteBtn);
 
   //append cells into the row
   newRow.appendChild(titleCell);
   newRow.appendChild(authorCell);
   newRow.appendChild(pagesCell);
   newRow.appendChild(isReadCell);
+  newRow.appendChild(deleteBtnCell);
 
   //append new rows into the table
   myTable.appendChild(newRow);
+
+  //Delete Button Functionality for each row
+  deleteBtn.addEventListener("click", () => {
+    newRow.remove();
+  });
 });
 
-//Adding some initial books to the library
-addBooks("The Great Gatsby", "F. Scott Fitzgerald", 180, true);
-addBooks("To Kill a Mockingbird", "Harper Lee", 281, false);
+//Remove Button Functionality
+removeBtn.addEventListener("click", () => {
+  library.length = 0;
 
-// Display the initial books
-library.forEach((book) => {
-  const newRow = myTable.insertRow();
-  newRow.insertCell().textContent = book.title;
-  newRow.insertCell().textContent = book.author;
-  newRow.insertCell().textContent = book.pages;
-  newRow.insertCell().textContent = book.isRead;
+  myTable.innerHTML = `
+     <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Pages</th>
+          <th>Read Status</th>
+        </tr>
+  `;
+
+  alert("All books removed!!");
 });
