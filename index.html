@@ -20,6 +20,33 @@
       <button class="btn" id="addBtn">Add Books</button>
       <button class="btn" id="removeBtn">Remove All</button>
     </div>
+
+    <div id="popupForm" class="popup hidden">
+      <div class="popup-content">
+        <h3>Add a New Book</h3>
+        <form id="bookForm">
+          <label>Title:</label>
+          <input type="text" id="titleInput" required />
+
+          <label>Author:</label>
+          <input type="text" id="authorInput" required />
+
+          <label>Pages:</label>
+          <input type="number" id="pagesInput" min="1" required />
+
+          <label>
+            <input type="checkbox" id="isReadInput" />
+            Have you read it?
+          </label>
+
+          <div class="form-buttons">
+            <button type="submit">Add</button>
+            <button type="button" id="closePopup">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <script src="objectConstructors.js"></script>
   </body>
 </html>

@@ -1,3 +1,10 @@
+const bookTitle = document.querySelector("#book-title");
+const myTable = document.querySelector("#myTable");
+const addBtn = document.querySelector("#addBtn");
+const removeBtn = document.querySelector("#removeBtn");
+const popupForm = document.getElementById("popupForm");
+const closePopup = document.getElementById("closePopup");
+
 // create Book constructor
 function Book(title, author, pages, isRead) {
   this.id = crypto.randomUUID();
@@ -20,11 +27,6 @@ function addBooks(title, author, pages, isRead) {
 addBooks("The Great Gatsby", "F. Scott Fitzgerald", 180, true);
 addBooks("To Kill a Mockingbird", "Harper Lee", 281, false);
 
-const bookTitle = document.querySelector("#book-title");
-const myTable = document.querySelector("#myTable");
-const addBtn = document.querySelector("#addBtn");
-const removeBtn = document.querySelector("#removeBtn");
-
 // Display the initial books
 library.forEach((book) => {
   const newRow = myTable.insertRow();
@@ -32,10 +34,19 @@ library.forEach((book) => {
   newRow.insertCell().textContent = book.author;
   newRow.insertCell().textContent = book.pages;
   newRow.insertCell().textContent = book.isRead;
+  const deleteCell = newRow.insertCell();
+  const deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "Delete";
+  deleteBtn.type = "button";
+  deleteCell.appendChild(deleteBtn);
+  deleteBtn.addEventListener("click", () => {
+    newRow.remove();
+  });
 });
 
 //Add Button Functionality
 addBtn.addEventListener("click", () => {
+  popupForm.classList.remove("hidden");
   //create new row and cells
   const newRow = document.createElement("tr");
   const titleCell = document.createElement("td");
@@ -45,14 +56,6 @@ addBtn.addEventListener("click", () => {
   const deleteBtnCell = document.createElement("td");
   const deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Delete";
-
-  //take book details from user
-  const title = prompt("Enter the book title");
-  const author = prompt("Enter the book author");
-  const pages = prompt("Enter the book pages");
-  const isRead = confirm(
-    "Have you read this book? Click ok if you read this book otherwise click on Cancel"
-  );
 
   addBooks(title, author, pages, isRead);
 
@@ -81,6 +84,11 @@ addBtn.addEventListener("click", () => {
   deleteBtn.addEventListener("click", () => {
     newRow.remove();
   });
+});
+
+//popup form close functionality
+closePopup.addEventListener("click", () => {
+  popupForm.classList.add("hidden");
 });
 
 //Remove Button Functionality
