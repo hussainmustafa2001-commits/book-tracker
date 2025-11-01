@@ -9,7 +9,6 @@ function Book(title, author, pages, isRead) {
   this.author = author;
   this.pages = pages;
   this.isRead = isRead ? "already read" : "not read yet";
-  console.log(isRead);
 }
 
 //cerate Library array to store book objects
@@ -42,7 +41,6 @@ addBtn.addEventListener("click", () => {
 
   //get the latest book added to the library
   const latestBook = library[library.length - 1];
-  console.log(latestBook);
 
   //adding text into the cell
   titleCell.textContent = latestBook.title;
